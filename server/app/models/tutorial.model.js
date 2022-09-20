@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Tutorial = sequelize.define("tutorial", {
+  return sequelize.define("tutorial", {
     title: {
       type: Sequelize.STRING
     },
@@ -9,7 +9,5 @@ module.exports = (sequelize, Sequelize) => {
     published: {
       type: Sequelize.BOOLEAN
     }
-  });
-
-  return Tutorial;
-};
+  })
+}

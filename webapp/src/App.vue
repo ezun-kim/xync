@@ -11,7 +11,7 @@
         </li>
         <li class="nav-item">
           <!-- <router-link class="nav-link">{{}}</router-link> -->
-          {{ user.username }}
+          <p @click="logout()">{{ user && user.username }}</p>
         </li>
       </div>
     </nav>
@@ -25,6 +25,9 @@
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
+import AuthService from "@/services/AuthService";
+import ResponseData from "@/types/ResponseData";
+import store from "@/store";
 
 export default defineComponent({
   name: "App",
@@ -34,11 +37,27 @@ export default defineComponent({
     const user = computed(() => store.getters["user/get"])
 
     return {
-      user
+      user,
+      store
     }
   },
 
   methods: {
+    logout() {
+      AuthService.logout()
+        .then((response: ResponseData) => {
+          if (response.data.user == undefined) {
+            store.commit("user/set", null)
+            this.$router.push({ name: "login" });
+          }
+          else {
+            alert(response.data.message)
+          }
+        })
+        .catch((e: Error) => {
+          console.log(e);
+        });
+    }
   },
 
   computed: {

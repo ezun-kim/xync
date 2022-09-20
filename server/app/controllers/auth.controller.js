@@ -35,3 +35,16 @@ exports.get = (req, res) => {
   }
   return res.json({ user: null });
 };
+
+exports.logout = (req, res, next) => {
+    req.logout((err) => {
+    if (err) { 
+      return next(err)
+    }
+
+    return res.json({ user: null })
+    // req.session.save(()=>{
+    //   // res.redirect('/')
+    // })  
+  });
+}

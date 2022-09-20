@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Auth = sequelize.define("auth", {
+  return sequelize.define("auth", {
     username: {
       type: Sequelize.STRING
     },
@@ -7,6 +7,4 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING
     },
   });
-
-  return Auth;
 };
