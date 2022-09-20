@@ -1,6 +1,12 @@
 const express = require("express");
+const session = require("express-session")
+const cookieParser = require("cookie-parser")
 const cors = require("cors");
 
+const appConfig = require("./app/config/app.config.js");
+
+var passport = require('passport');
+require('./app/passport').config(passport);  // passport 설정
 const app = express();
 
 var corsOptions = {
@@ -14,6 +20,7 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
 
 const db = require("./app/models");
 
@@ -39,10 +46,34 @@ app.get("/", (req, res) => {
 const tutorials = require("./app/controllers/tutorial.controller.js");
 app.get('/login', tutorials.login);
 
-require("./app/routes/turorial.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+
+
+app.use(cookieParser(appConfig.COOKIE_SECRET));
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: appConfig.COOKIE_SECRET,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+  }
+}));
+
+
+
+// req에 passport의 설정값들 적용
+app.use(passport.initialize());
+
+// session 정보 저장 (req.session, req.user)
+app.use(passport.session()); 
+
+
+require("./app/routes/turorial.routes")(app);
+require("./app/routes/auth.routes")(app);
