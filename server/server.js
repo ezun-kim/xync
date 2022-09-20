@@ -35,6 +35,10 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+
+const tutorials = require("./app/controllers/tutorial.controller.js");
+app.get('/login', tutorials.login);
+
 require("./app/routes/turorial.routes")(app);
 
 // set port, listen for requests

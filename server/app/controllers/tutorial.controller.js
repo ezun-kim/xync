@@ -150,3 +150,8 @@ exports.findAllPublished = (req, res) => {
       });
     });
 };
+
+
+exports.login = (req, res) => {
+  res.send("ok")
+};
