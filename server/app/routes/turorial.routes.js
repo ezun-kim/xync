@@ -1,3 +1,6 @@
+
+var passport = require('passport');
+
 module.exports = app => {
   const tutorials = require("../controllers/tutorial.controller.js");
 
@@ -9,7 +12,6 @@ module.exports = app => {
   // Retrieve all Tutorials
   router.get("/", tutorials.findAll);
 
-  
   // Retrieve all published Tutorials
   router.get("/published", tutorials.findAllPublished);
 

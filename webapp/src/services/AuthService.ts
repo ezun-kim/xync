@@ -9,6 +9,10 @@ class AuthService {
   logout(): Promise<any> {
     return http.post("/auth/logout")
   }
+
+  user(): Promise<any> {
+    return http.get("/auth/")
+  }
 }
 
 export default new AuthService();

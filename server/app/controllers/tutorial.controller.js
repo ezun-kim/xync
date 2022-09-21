@@ -32,8 +32,15 @@ exports.create = (req, res) => {
     });
 };
 
+
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
+
+  if (!req.isAuthenticated()) {
+    console.log(req.isAuthenticated())
+    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+  }
+
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 

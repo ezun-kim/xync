@@ -67,13 +67,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted } from "vue";
 import TutorialDataService from "@/services/TutorialDataService";
 import Tutorial from "@/types/Tutorial";
 import ResponseData from "@/types/ResponseData";
+import AuthService from "@/services/AuthService";
+import store from "@/store";
+
 
 export default defineComponent({
   name: "tutorials-list",
+  setup() {
+  },
   data() {
     return {
       tutorials: [] as Tutorial[],
@@ -82,7 +87,9 @@ export default defineComponent({
       title: "",
     };
   },
+
   methods: {
+
     retrieveTutorials() {
       TutorialDataService.getAll()
         .then((response: ResponseData) => {
@@ -90,7 +97,7 @@ export default defineComponent({
           console.log(response.data);
         })
         .catch((e: Error) => {
-          console.log(e);
+          console.log("error", e);
         });
     },
 
@@ -130,6 +137,10 @@ export default defineComponent({
   },
   mounted() {
     this.retrieveTutorials();
+    console.log("mounted")
+    if (store.getters["user/get"].username == '') {
+      this.$router.push({ name: "login" });
+    }
   },
 });
 </script>

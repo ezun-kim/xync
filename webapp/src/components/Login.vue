@@ -39,7 +39,6 @@ export default defineComponent({
     login() {
       AuthService.login(this.currentAuth.username, this.currentAuth.password)
         .then((response: ResponseData) => {
-          // console.log(response);
           if (response.data.user != undefined) {
             store.commit("user/set", response.data.user)
             this.$router.push({ name: "tutorials" });
@@ -47,8 +46,6 @@ export default defineComponent({
           else {
             alert(response.data.message)
           }
-          
-          // this.$router.push({ name: "tutorials" });
         })
         .catch((e: Error) => {
           console.log(e);

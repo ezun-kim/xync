@@ -38,10 +38,24 @@ db.sequelize.sync()
 // });
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+// app.get("/", (req, res) => {
+//   res.json({ message: "Welcome to bezkoder application." });
+// });
 
+
+// AuthService.logout()
+//         .then((response: ResponseData) => {
+//           if (response.data.user == undefined) {
+//             store.commit("user/set", null)
+//             this.$router.push({ name: "login" });
+//           }
+//           else {
+//             alert(response.data.message)
+//           }
+//         })
+//         .catch((e: Error) => {
+//           console.log(e);
+//         });
 
 const tutorials = require("./app/controllers/tutorial.controller.js");
 app.get('/login', tutorials.login);

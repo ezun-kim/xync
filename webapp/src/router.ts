@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import { RouteRecordRaw } from "vue-router";
+import store from "@/store";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,6 +29,30 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  console.log("beforeEach");
+
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (localStorage.getItem("userToken") == null) {
+      next({
+        path: "/login",
+        params: { nextUrl: to.fullPath },
+      });
+    } else {
+      if (!store.state.isAuthenticated) {
+        next({
+          path: "/login",
+          params: { nextUrl: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
