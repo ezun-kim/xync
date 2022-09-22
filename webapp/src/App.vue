@@ -11,7 +11,9 @@
         </li>
         <li class="nav-item">
           <!-- <router-link class="nav-link">{{}}</router-link> -->
-          <p @click="logout()">{{ user && user.username }}</p>
+          <p @click="logout()">
+          {{ isAuthenticated ? "로그인됨" : "로그인 안됨" }}</p>
+
         </li>
       </div>
     </nav>
@@ -24,10 +26,8 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { useStore } from "vuex";
+import { useStore,mapGetters } from "vuex";
 import AuthService from "@/services/AuthService";
-import ResponseData from "@/types/ResponseData";
-import store from "@/store";
 
 export default defineComponent({
   name: "App",
@@ -42,33 +42,19 @@ export default defineComponent({
     }
   },
 
+  computed: {
+      ...mapGetters(["isAuthenticated"]),
+    },
+
   methods: {
     logout() {
       AuthService.logout()
-        .then((response: ResponseData) => {
-          if (response.data.user == undefined) {
-            store.commit("user/set", null)
-            this.$router.push({ name: "login" });
-          }
-          else {
-            alert(response.data.message)
-          }
-        })
-        .catch((e: Error) => {
-          console.log(e);
-        });
+      this.$router.push({name:"login"})
     }
-  },
-
-  computed: {
-    // name() {
-    // return useStore().state.user;
-    // }
   },
 
   data() {
     return {
-      n: "dd",
     }
   }
 });

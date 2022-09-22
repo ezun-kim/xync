@@ -1,12 +1,9 @@
 const express = require("express");
 const session = require("express-session")
-const cookieParser = require("cookie-parser")
 const cors = require("cors");
 
 const appConfig = require("./app/config/app.config.js");
 
-var passport = require('passport');
-require('./app/passport').config(passport);  // passport 설정
 const app = express();
 
 var corsOptions = {
@@ -69,25 +66,16 @@ app.listen(PORT, () => {
 
 
 
-app.use(cookieParser(appConfig.COOKIE_SECRET));
-app.use(session({
-  resave: false,
-  saveUninitialized: false,
-  secret: appConfig.COOKIE_SECRET,
-  cookie: {
-    httpOnly: true,
-    secure: false,
-  }
-}));
-
-
-
-// req에 passport의 설정값들 적용
-app.use(passport.initialize());
-
-// session 정보 저장 (req.session, req.user)
-app.use(passport.session()); 
-
+// app.use(cookieParser(appConfig.COOKIE_SECRET));
+// app.use(session({
+//   resave: false,
+//   saveUninitialized: false,
+//   secret: appConfig.COOKIE_SECRET,
+//   cookie: {
+//     httpOnly: true,
+//     secure: false,
+//   }
+// }));
 
 require("./app/routes/turorial.routes")(app);
 require("./app/routes/auth.routes")(app);

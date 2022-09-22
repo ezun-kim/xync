@@ -3,7 +3,8 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    router.post("/", authController.post);
+    router.post("/requestToken", authController.requestToken);
+    router.post("/login", authController.verify)
     router.get("/", authController.get);
     router.post("/logout", authController.logout)
 

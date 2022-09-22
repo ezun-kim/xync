@@ -1,5 +1,4 @@
 
-var passport = require('passport');
 
 module.exports = app => {
   const tutorials = require("../controllers/tutorial.controller.js");

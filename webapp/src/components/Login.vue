@@ -37,17 +37,18 @@ export default defineComponent({
   },
   methods: {
     login() {
+      store.dispatch
       AuthService.login(this.currentAuth.username, this.currentAuth.password)
         .then((response: ResponseData) => {
-          if (response.data.user != undefined) {
-            store.commit("user/set", response.data.user)
-            this.$router.push({ name: "tutorials" });
-          }
-          else {
-            alert(response.data.message)
+          if (response.status == 200) {
+            console.log("Login success")
+            this.$router.push({
+              name: "tutorials",
+            })
           }
         })
         .catch((e: Error) => {
+          alert(e);
           console.log(e);
         });
     },
