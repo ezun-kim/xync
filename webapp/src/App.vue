@@ -12,8 +12,9 @@
         <li class="nav-item">
           <!-- <router-link class="nav-link">{{}}</router-link> -->
           <p @click="logout()">
-          {{ isAuthenticated ? "로그인됨" : "로그인 안됨" }}</p>
+          {{ isAuthenticated ? "로그인 됨" : "로그인 안됨" }}</p>
 
+          <p @click="verify()">Verify</p>
         </li>
       </div>
     </nav>
@@ -50,6 +51,14 @@ export default defineComponent({
     logout() {
       AuthService.logout()
       this.$router.push({name:"login"})
+    },
+    userName() {
+      return AuthService.user()
+    },
+    verify() {
+      AuthService.verify().then((res)=>{
+          console.log(res)
+        })
     }
   },
 

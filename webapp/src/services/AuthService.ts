@@ -9,7 +9,7 @@ class AuthService {
 
       // 1. Request JWT from server
       http
-        .post("/auth/requestToken", {username,password})
+        .post("/auth/signin", {username,password})
         .then((res) => {
           // 2. Save JWT
           if (res.status == 200) {
@@ -49,7 +49,13 @@ class AuthService {
   }
 
   user(): Promise<any> {
-    return http.get("/auth/");
+    const res = http.get("/auth/verify")
+    console.log("user:",res)
+    return res;
+  }
+
+  verify(): Promise<any> {
+    return http.post("/auth/verify");
   }
 }
 

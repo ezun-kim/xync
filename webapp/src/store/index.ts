@@ -77,7 +77,7 @@ export const root = {
     },
   },
   getters: {
-    getAccessToken: (state: AuthState) => {
+    accessToken: (state: AuthState) => {
       return state.token.accessToken;
     },
     isAuthenticated: (state: AuthState) => {
