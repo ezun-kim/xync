@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <nav v-if="isAuthenticated" class="navbar navbar-expand navbar-dark bg-dark">
       <router-link to="/" class="navbar-brand">XYNC</router-link>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
