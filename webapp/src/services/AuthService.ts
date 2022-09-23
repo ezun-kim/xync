@@ -13,7 +13,8 @@ class AuthService {
         .then((res) => {
           // 2. Save JWT
           if (res.status == 200) {
-            store.commit("saveToken", {accessToken: res.data})
+            store.commit("saveToken", res.data.token)
+            store.commit("user/set", res.data.user)
             resolve(res);
           }
           else {
@@ -31,6 +32,7 @@ class AuthService {
 
   logout() {
     store.commit("logout")
+    store.commit("user/set", null)
     // return new Promise((resolve, reject) => {
     //   http.post("/auth/logout").then((res)=>{
     //     if (res.status == 200) {

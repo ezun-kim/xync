@@ -18,7 +18,7 @@ const db = {
   Sequelize, 
   sequelize,
   tutorials: require("./tutorial.model.js")(sequelize, Sequelize),
-  users: require("./user.model.js")(sequelize, Sequelize)
+  users: require("./user.js")(sequelize, Sequelize)
 };
 
 module.exports = db;

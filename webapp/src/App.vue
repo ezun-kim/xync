@@ -12,8 +12,8 @@
         <li class="nav-item">
           <!-- <router-link class="nav-link">{{}}</router-link> -->
           <p @click="logout()">
-          {{ isAuthenticated ? "로그인 됨" : "로그인 안됨" }}</p>
-
+            
+          {{ isAuthenticated ? `${store.getters["user/get"].username}님` : "로그인 안됨" }}</p>
           <p @click="verify()">Verify</p>
         </li>
       </div>

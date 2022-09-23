@@ -8,35 +8,29 @@ export interface RootState {
 }
 
 export interface AuthState {
-  count: 0;
-
   isAuthenticated: boolean;
-  token: AccessToken;
-}
-
-export interface AccessToken {
   accessToken: string;
 }
 
 export const root = {
   state: () => ({
     count: 0,
-    token: {
-      accessToken: jwt.getToken(),
-    },
+
+    accessToken: jwt.getToken(),
     isAuthenticated: !!jwt.getToken(),
   }),
   mutations: {
     logout: function (state: AuthState, payload = {}) {
-      state.token.accessToken = "";
+      state.accessToken = "";
       state.isAuthenticated = false;
       jwt.destroyToken();
     },
-    saveToken: function (state: AuthState, accessToken: AccessToken) {
-      state.token.accessToken = accessToken.accessToken;
+    saveToken: function (state: AuthState, accessToken: string) {
+      state.accessToken = accessToken;
+      console.log("access Token save", state.accessToken)
       state.isAuthenticated = true;
       jwt.saveToken(accessToken);
-    },
+    }
   },
 
   actions: {
@@ -76,7 +70,7 @@ export const root = {
   },
   getters: {
     accessToken: (state: AuthState) => {
-      return state.token.accessToken;
+      return state.accessToken;
     },
     isAuthenticated: (state: AuthState) => {
       return state.isAuthenticated;

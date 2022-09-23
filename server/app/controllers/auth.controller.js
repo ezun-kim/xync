@@ -36,7 +36,9 @@ exports.signin = (req, res, next) => {
 
         // 클라이언트에게 JWT생성 후 반환
         const token = jwt.sign({ username }, secretKey, options);
-        res.send({ token });
+        
+        user.password = ""
+        res.send({ token, user });
       });
     })(req, res);
   } catch (error) {
