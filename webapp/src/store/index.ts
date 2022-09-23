@@ -32,12 +32,10 @@ export const root = {
       state.isAuthenticated = false;
       jwt.destroyToken();
     },
-    saveToken: function (state: AuthState, payload: AccessToken) {
-      console.log("Saving token : ", payload.accessToken);
-
-      state.token.accessToken = payload.accessToken;
+    saveToken: function (state: AuthState, accessToken: AccessToken) {
+      state.token.accessToken = accessToken.accessToken;
       state.isAuthenticated = true;
-      jwt.saveToken(payload.accessToken);
+      jwt.saveToken(accessToken);
     },
   },
 

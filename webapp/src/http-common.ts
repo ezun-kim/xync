@@ -12,8 +12,8 @@ http.interceptors.request.use(config => {
     const isAuthenticated = store.getters["isAuthenticated"]
     if (isAuthenticated) {
       config.headers.common["Authorization"] = `Bearer ${store.getters["accessToken"].token}`
+      console.log("header token : ", store.getters["accessToken"].token)
     }
-    console.log("header token : ", store.getters["accessToken"].token)
     return config
   },
   error => {
