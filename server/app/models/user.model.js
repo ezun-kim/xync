@@ -8,6 +8,15 @@ module.exports = (sequelize, Sequelize) => {
     },
     name: {
       type: Sequelize.STRING
-    }
+    },
+    email: {
+      type: Sequelize.STRING
+    },
+    email_auth: {
+      type: Sequelize.BOOLEAN
+    },
+    role: {
+      type: Sequelize.STRING
+    },
   });
 };
